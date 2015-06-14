@@ -2,8 +2,8 @@
  
 import praw
  
-USERNAME  = "subredditlinkfixer"
-PASSWORD  = "applesaucy"
+USERNAME  = "Username"
+PASSWORD  = "Password"
 USERAGENT = "Comment Deleter"
  
 r = praw.Reddit(USERAGENT)
