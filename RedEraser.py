@@ -72,7 +72,7 @@ def commentDeleter(user, commentsToDelete):
 
             # After every 10 comments it prints how many comments have been deleted so far
             if commentsDeleted % 10 == 0:
-                print "{0} Comments Deleted".format(commensDeleted)
+                print "{0} Comments Deleted".format(commentsDeleted)
 
     if commentsDeleted != 0:
         print "All {0} Comments Deleted".format(postsDeleted)
