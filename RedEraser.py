@@ -6,6 +6,9 @@ import praw
 USERNAME  = "YOUR USERNAME"
 PASSWORD  = "YOUR PASSWORD"
 
+# Enter list of subreddits to ignore in lowercase
+IGNORE_SUBREDDITS = {}
+
 # Leave this as -1 if you want to erase everything
 # Otherwise change to how many comments or posts you want deleted
 commentsToDelete = -1
@@ -40,7 +43,7 @@ def login():
 def commentDeleter(user, commentsToDelete):
 
     print "Deleting comments now"
-    
+
     # Tracks how many comments have deleted so far
     global commentsDeleted
 
@@ -56,11 +59,13 @@ def commentDeleter(user, commentsToDelete):
         # Due to the limits on reddit's API, this for loop can only access 100 comments at a time
         for c in user.get_comments(limit=None):
 
-            # Because reddit only saves the most recently edited comment, 
+            # Because reddit only saves the most recently edited comment,
             # each comment is edited with a pound symbol and then deleted
+            if str(c.subreddit).lower() in IGNORE_SUBREDDITS:
+                continue
             c.edit('#')
             c.delete()
-            
+
             commentsDeleted += 1
             print "Comment Deleted"
 
@@ -85,12 +90,14 @@ def postDeleter(user, postsToDelete):
     global postsDeleted
 
     for o in xrange(0,999999999):
-        
+
         if o > 0 and postsDeleted == 0:
             print "No posts to delete!"
             return
-        
+
         for p in user.get_submitted(limit=None):
+            if str(p.subreddit).lower() in IGNORE_SUBREDDITS:
+                continue
             if p.selftext:
                 p.edit('#')
             p.delete()
