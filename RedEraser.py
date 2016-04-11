@@ -101,7 +101,7 @@ def postDeleter(user, postsToDelete):
             if p.selftext:
                 p.edit('#')
             p.delete()
-            postsDeleted = 0
+            postsDeleted += 1
 
             if postsDeleted == postsToDelete:
                 print "{0} Posts Deleted".format(postsDeleted)
